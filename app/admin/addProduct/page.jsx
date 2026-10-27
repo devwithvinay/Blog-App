@@ -100,7 +100,6 @@ function page() {
           <option value="startup">Startup</option>
           <option value="technology">Technology</option>
           <option value="lifestyle">Lifestyle</option>
-          <option value="travel">Travel</option>
         </select>
         <br />
         <button type="submit" className="mt-8 w-40 h-12 bg-black text-white">
