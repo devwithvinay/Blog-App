@@ -55,11 +55,11 @@ useEffect(()=>{
               return (
                 <BlogTableItem
                   key={item._id}
-                  mongoid={item._id}
-                  authorImg={item.author_img}
+                  mongoId={item._id}
+                  authorImg={item.authorImg}
                   title={item.title}
                   author={item.author}
-                  date={item.date}
+                  date={item.createdAt}
                   deleteBlog={deleteBlog}
                 />
               );

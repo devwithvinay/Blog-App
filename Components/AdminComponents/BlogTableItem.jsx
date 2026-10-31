@@ -12,6 +12,7 @@ function BlogTableItem({ authorImg, title, author, date , deleteBlog , mongoId})
         scope="row"
         className="hidden sm:table-cell px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
       >
+        <div className="flex items-center gap-3">
         <Image
           src={authorImg ? authorImg : assets.profile_icon}
           width={40}
@@ -19,6 +20,7 @@ function BlogTableItem({ authorImg, title, author, date , deleteBlog , mongoId})
           alt=""
         />
         <p>{author ? author : "No author"}</p>
+      </div>
       </th>
       <td className="px-6 py-4">{title ? title : "no title"}</td>
       <td className="px-6 py-4">{BlogDate.toDateString()}</td>

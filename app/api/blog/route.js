@@ -58,12 +58,26 @@ export async function POST(request) {
 
 // api endpoint to delete the blog
 
-export async function DELETE(request){
+export async function DELETE(request) {
+  try {
+    const id = request.nextUrl.searchParams.get("id");
+    const blog = await BlogModel.findById(id);
 
-  const id = await request.nextUrl.searchParams.get("id")
-  const blog = await BlogModel.findById(id)
-  fs.unlink(`./public${blog.image}`,()=>{})
-  await BlogModel.findByIdAndDelete(id);
-  return NextResponse.json({message:"Blog Deleted"})
-    
+    if (!blog) {
+      return NextResponse.json(
+        { success: false, message: "Blog not found" },
+        { status: 404 },
+      );
+    }
+
+    fs.unlink(`./public${blog.image}`, () => {});
+    await BlogModel.findByIdAndDelete(id);
+
+    return NextResponse.json({ success: true, message: "Blog Deleted" });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 },
+    );
+  }
 }
