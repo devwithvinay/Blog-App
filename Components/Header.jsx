@@ -1,8 +1,27 @@
-import { assets } from '@/Assets/assets'
-import React from 'react'
-import Image from 'next/image'
+"use client"
+import { assets } from "@/Assets/assets";
+import React, { useState } from "react";
+import Image from "next/image";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 function Header() {
+  const [email, setEmail] = useState("");
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append("email", email);
+    const response = await axios.post("/api/email", formData);
+    if (response.data.success) {
+      toast.success(response.data.message);
+      setEmail("");
+    } else {
+      toast.error("Error");
+    }
+  };
+
   return (
     <div className="py-5 px-5 md:px-12 lg:px-28">
       <div className="flex justify-between items-center">
@@ -26,10 +45,13 @@ function Header() {
           nostrum?
         </p>
         <form
+          onSubmit={onSubmitHandler}
           className="flex justify-between max-w-125 scale-75 sm:scale-100 mx-auto mt-10 border border-black shadow-[-7px_7px_0px_#000000]"
           action=""
         >
           <input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             type="email"
             placeholder="Enter your email"
             className="pl-4 outline-none"
@@ -46,4 +68,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;
